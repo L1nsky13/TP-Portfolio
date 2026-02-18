@@ -1,0 +1,444 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Théodore NAJMAN - Todo App</title>
+    <link rel="stylesheet" href="/static/css/style.css">
+    <style>
+        .todos {
+            min-height: 100vh;
+            padding: 40px 20px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        }
+
+        .todo-container {
+            max-width: 600px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 12px;
+            padding: 30px;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
+        }
+
+        .todo-title {
+            text-align: center;
+            color: #333;
+            margin-bottom: 30px;
+            font-size: 2.5em;
+            font-weight: bold;
+        }
+
+        .todo-form {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 30px;
+        }
+
+        .todo-input {
+            flex: 1;
+            padding: 12px 15px;
+            border: 2px solid #ddd;
+            border-radius: 8px;
+            font-size: 1em;
+            transition: border-color 0.3s;
+        }
+
+        .todo-input:focus {
+            outline: none;
+            border-color: #667eea;
+            box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+        }
+
+        .todo-btn-add {
+            padding: 12px 30px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+
+        .todo-btn-add:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 20px rgba(102, 126, 234, 0.4);
+        }
+
+        .todo-btn-add:active {
+            transform: translateY(0);
+        }
+
+        .todo-list {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .todo-item {
+            display: flex;
+            align-items: center;
+            padding: 15px;
+            border: 1px solid #eee;
+            border-radius: 8px;
+            margin-bottom: 10px;
+            background: #f9f9f9;
+            transition: all 0.3s;
+        }
+
+        .todo-item:hover {
+            background: #f0f0f0;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .todo-item.completed {
+            opacity: 0.6;
+        }
+
+        .todo-item.completed .todo-text {
+            text-decoration: line-through;
+            color: #999;
+        }
+
+        .todo-checkbox {
+            width: 20px;
+            height: 20px;
+            margin-right: 15px;
+            cursor: pointer;
+            accent-color: #667eea;
+        }
+
+        .todo-text {
+            flex: 1;
+            font-size: 1em;
+            color: #333;
+        }
+
+        .todo-btn-delete {
+            padding: 8px 15px;
+            background: #ff6b6b;
+            color: white;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 0.9em;
+            transition: background 0.3s, transform 0.2s;
+        }
+
+        .todo-btn-delete:hover {
+            background: #ff5252;
+            transform: scale(1.05);
+        }
+
+        .todo-empty {
+            text-align: center;
+            padding: 40px 20px;
+            color: #999;
+            font-size: 1.2em;
+        }
+
+        .todo-stats {
+            display: flex;
+            justify-content: space-around;
+            margin-top: 30px;
+            padding-top: 20px;
+            border-top: 2px solid #eee;
+            text-align: center;
+        }
+
+        .stat-item {
+            flex: 1;
+        }
+
+        .stat-number {
+            font-size: 2em;
+            font-weight: bold;
+            color: #667eea;
+        }
+
+        .stat-label {
+            color: #666;
+            font-size: 0.9em;
+        }
+
+        /* Header Navigation */
+        .header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            padding: 20px 0;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+        }
+
+        .header-counter {
+            color: white;
+            padding-right: 20px;
+        }
+
+        .nav {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 20px;
+        }
+
+        .nav-list {
+            display: flex;
+            list-style: none;
+            gap: 20px;
+            margin: 0;
+            padding: 0;
+        }
+
+        .nav-link {
+            color: white;
+            text-decoration: none;
+            font-weight: 500;
+            transition: opacity 0.3s;
+        }
+
+        .nav-link:hover {
+            opacity: 0.8;
+        }
+
+        .theme-toggle {
+            background: white;
+            border: none;
+            padding: 8px 12px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 1.2em;
+        }
+
+        body.light-mode .todos {
+            background: linear-gradient(135deg, #f5f5f5 0%, #e0e0e0 100%);
+        }
+
+        body.light-mode .todo-container {
+            background: #fff;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);
+        }
+
+        body.light-mode .todo-item {
+            background: #f5f5f5;
+            border-color: #ddd;
+        }
+
+        body.light-mode .todo-title {
+            color: #333;
+        }
+
+        body.light-mode .todo-text {
+            color: #333;
+        }
+    </style>
+</head>
+<body>
+    <!-- Header Navigation -->
+    <header class="header">
+        <nav class="nav">
+            <ul class="nav-list">
+                <li><a href="/" class="nav-link">Accueil</a></li>
+                <li><a href="/apropos" class="nav-link">À propos</a></li>
+                <li><a href="/competences" class="nav-link">Compétences</a></li>
+                <li><a href="/projets" class="nav-link">Projets</a></li>
+                <li><a href="/todos" class="nav-link">Todo App</a></li>
+                <li><a href="/contact" class="nav-link">Contact</a></li>
+            </ul>
+            <button class="theme-toggle" onclick="toggleDarkMode()" aria-label="Toggle dark mode">🌙</button>
+        </nav>
+    </header>
+
+    <!-- Todo Section -->
+    <section class="todos">
+        <div class="todo-container">
+            <h1 class="todo-title">📝 Ma Todo App</h1>
+
+            <!-- Formulaire d'ajout -->
+            <form class="todo-form" id="todoForm">
+                <input 
+                    type="text" 
+                    class="todo-input" 
+                    id="todoInput" 
+                    placeholder="Ajouter une nouvelle tâche..." 
+                    autocomplete="off"
+                >
+                <button type="submit" class="todo-btn-add">Ajouter</button>
+            </form>
+
+            <!-- Liste des todos -->
+            <ul class="todo-list" id="todoList">
+                {{range .Todos}}
+                <li class="todo-item {{if .Completed}}completed{{end}}" data-id="{{.ID}}">
+                    <input 
+                        type="checkbox" 
+                        class="todo-checkbox" 
+                        {{if .Completed}}checked{{end}}
+                        onchange="toggleTodo(this, '{{.ID}}')"
+                    >
+                    <span class="todo-text">{{.Title}}</span>
+                    <button class="todo-btn-delete" onclick="deleteTodo('{{.ID}}')">Supprimer</button>
+                </li>
+                {{end}}
+            </ul>
+
+            {{if eq (len .Todos) 0}}
+            <div class="todo-empty">
+                Aucune tâche pour le moment. Ajoute-en une pour commencer! 🚀
+            </div>
+            {{end}}
+
+            <!-- Statistiques -->
+            <div class="todo-stats">
+                <div class="stat-item">
+                    <div class="stat-number" id="totalCount">{{len .Todos}}</div>
+                    <div class="stat-label">Total</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-number" id="completedCount">0</div>
+                    <div class="stat-label">Complétées</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-number" id="pendingCount">{{len .Todos}}</div>
+                    <div class="stat-label">En attente</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <script src="/static/js/main.js"></script>
+    <script>
+        // Initialiser les statistiques
+        function updateStats() {
+            const todos = document.querySelectorAll('.todo-item');
+            const completed = document.querySelectorAll('.todo-item.completed');
+            document.getElementById('totalCount').textContent = todos.length;
+            document.getElementById('completedCount').textContent = completed.length;
+            document.getElementById('pendingCount').textContent = todos.length - completed.length;
+        }
+
+        // Ajouter un todo
+        document.getElementById('todoForm').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const input = document.getElementById('todoInput');
+            const title = input.value.trim();
+
+            if (title === '') {
+                alert('Veuillez entrer une tâche');
+                return;
+            }
+
+            try {
+                const response = await fetch('/api/todos', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+                    body: 'title=' + encodeURIComponent(title)
+                });
+
+                if (response.ok) {
+                    const todo = await response.json();
+                    const list = document.getElementById('todoList');
+                    
+                    // Supprimer le message "aucune tâche"
+                    const empty = list.parentElement.querySelector('.todo-empty');
+                    if (empty) empty.remove();
+
+                    // Ajouter le nouveau todo
+                    const li = document.createElement('li');
+                    li.className = 'todo-item';
+                    li.setAttribute('data-id', todo.id);
+                    li.innerHTML = `
+                        <input type="checkbox" class="todo-checkbox" onchange="toggleTodo(this, '${todo.id}')">
+                        <span class="todo-text">${todo.title}</span>
+                        <button class="todo-btn-delete" onclick="deleteTodo('${todo.id}')">Supprimer</button>
+                    `;
+                    list.appendChild(li);
+                    input.value = '';
+                    input.focus();
+                    updateStats();
+                } else {
+                    alert('Erreur lors de l\'ajout');
+                }
+            } catch (error) {
+                console.error('Erreur:', error);
+                alert('Erreur lors de l\'ajout du todo');
+            }
+        });
+
+        // Basculer l'état d'un todo
+        async function toggleTodo(checkbox, id) {
+            try {
+                const response = await fetch('/api/todos/toggle?id=' + id, {
+                    method: 'POST'
+                });
+
+                if (response.ok) {
+                    const item = document.querySelector(`[data-id="${id}"]`);
+                    if (checkbox.checked) {
+                        item.classList.add('completed');
+                    } else {
+                        item.classList.remove('completed');
+                    }
+                    updateStats();
+                } else {
+                    checkbox.checked = !checkbox.checked;
+                    alert('Erreur lors de la mise à jour');
+                }
+            } catch (error) {
+                console.error('Erreur:', error);
+                checkbox.checked = !checkbox.checked;
+            }
+        }
+
+        // Supprimer un todo
+        async function deleteTodo(id) {
+            if (!confirm('Êtes-vous sûr de vouloir supprimer cette tâche?')) return;
+
+            try {
+                const response = await fetch('/api/todos?id=' + id, {
+                    method: 'POST'
+                });
+
+                if (response.ok) {
+                    const item = document.querySelector(`[data-id="${id}"]`);
+                    item.style.animation = 'fadeOut 0.3s ease-out';
+                    setTimeout(() => {
+                        item.remove();
+                        updateStats();
+                        
+                        // Afficher le message si vide
+                        if (document.querySelectorAll('.todo-item').length === 0) {
+                            const container = document.querySelector('.todo-container');
+                            const empty = document.createElement('div');
+                            empty.className = 'todo-empty';
+                            empty.textContent = 'Aucune tâche pour le moment. Ajoute-en une pour commencer! 🚀';
+                            container.appendChild(empty);
+                        }
+                    }, 300);
+                } else {
+                    alert('Erreur lors de la suppression');
+                }
+            } catch (error) {
+                console.error('Erreur:', error);
+                alert('Erreur lors de la suppression du todo');
+            }
+        }
+
+        // Initialiser les stats au chargement
+        updateStats();
+
+        // Animation de disparition
+        const style = document.createElement('style');
+        style.textContent = `
+            @keyframes fadeOut {
+                to {
+                    opacity: 0;
+                    transform: translateX(-20px);
+                }
+            }
+        `;
+        document.head.appendChild(style);
+    </script>
+</body>
+</html>

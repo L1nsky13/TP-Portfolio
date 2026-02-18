@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Théodore NAJMAN - Portfolio - Projets</title>
+    <link rel="stylesheet" href="/static/css/style.css">
+</head>
+<body>
+    <!-- Header Navigation -->
+    <header class="header">
+        <div class="visit-counter header-counter">
+            <p class="counter-text">👁️ <span id="visitCount">36</span></p>
+        </div>
+        <nav class="nav">
+            <ul class="nav-list">
+                <li><a href="/" class="nav-link">Accueil</a></li>
+                <li><a href="/apropos" class="nav-link">À propos</a></li>
+                <li><a href="/competences" class="nav-link">Compétences</a></li>
+                <li><a href="/projets" class="nav-link">Projets</a></li>
+                <li><a href="/contact" class="nav-link">Contact</a></li>
+            </ul>
+            <button class="theme-toggle" onclick="toggleDarkMode()" aria-label="Toggle dark mode">🌙</button>
+        </nav>
+    </header>
+    <!-- Projets Section -->
+    <section id="projets" class="section projets">
+        <div class="container">
+            <h2 class="section-title">Projets</h2>
+            
+            <!-- Filtres de projets -->
+            <div class="project-filters">
+                <button class="filter-btn active" data-category="all">Tous</button>
+                <button class="filter-btn" data-category="html">HTML</button>
+                <button class="filter-btn" data-category="css">CSS</button>
+                <button class="filter-btn" data-category="js">JavaScript</button>
+                <button class="filter-btn" data-category="php">PHP</button>
+                <button class="filter-btn" data-category="golang">GoLang</button>
+            </div>
+            
+            <!-- Carousel de projets -->
+            <div class="projects-carousel-container">
+                <button class="carousel-nav-btn prev" id="prevProject">‹</button>
+                <div class="projects-grid" id="projectsGrid">
+                <a href="https://github.com/0xsushy/projet-red-goldeneyes-5" class="project-link" data-category="golang" target="_blank">
+                    <div class="project-card">
+                        <img src="/static/assets/red.png" alt="Projet RED GoldenEye" class="project-image">
+                        <h3 class="project-title">Projet RED : GoldenEye</h3>
+                        <p class="project-description">
+                            Dans le cadre du projet RED pour le Ynov Campus d'Aix-en-Provence, 
+                            nous avons parodié le jeu vidéo : "007 GoldenEye", sorti en 1997, 
+                            en ajoutant plusieurs références aux films de James Bond et des 
+                            jeux à missions/infiltrations (comme Hitman ou Assassin's Creed).
+                        </p>
+                        <div class="project-tags">
+                            <span class="tag">GoLang</span>
+                        </div>
+                    </div>
+                </a>
+                <a href="https://github.com/L1nsky13/TP-creation-landing-page" class="project-link" data-category="html css" target="_blank">
+                    <div class="project-card">
+                        <img src="/static/assets/landingPage.png" alt="Landing Page" class="project-image">
+                        <h3 class="project-title">Création d'un landing page</h3>
+                        <p class="project-description">
+                            Le but de ce TP est de se familiariser avec le HTML, le CSS et le FlexBox 
+                            en créant un site web sur le thème de la vente d'un produit.
+                        </p>
+                        <div class="project-tags">
+                            <span class="tag">HTML</span>
+                            <span class="tag">CSS</span>
+                        </div>
+                    </div>
+                </a>
+                <a href="https://github.com/L1nsky13/Tp-Rendre-un-site-web-dynamique" class="project-link" data-category="html css golang" target="_blank">
+                    <div class="project-card">
+                        <img src="/static/assets/webDynamique.png" alt="Site Web Dynamique" class="project-image">
+                        <h3 class="project-title">Rendre un site web dynamique</h3>
+                        <p class="project-description">
+                            Le but de ce TP est de rendre un site web d'achat en ligne en Golang et en HTML.
+                            Il met en oeuvre la gestion des routes HTTP, l'utilisation des templates HTML, 
+                            la manipulation des formulaires, la stylisation avec CSS et le projet est structuré 
+                            autour de 3 challenges (Afficher la liste des articles, l'article sélectionné et 
+                            ajouter un produit) 
+                        </p>
+                        <div class="project-tags">
+                            <span class="tag">HTML</span>
+                            <span class="tag">CSS</span>
+                            <span class="tag">GoLang</span>
+                        </div>
+                    </div>
+                </a>
+                <a href="https://github.com/Mathys-Eustache/Projet-puissance-4" class="project-link" data-category="html css golang" target="_blank">
+                    <div class="project-card">
+                        <img src="/static/assets/power4.png" alt="Power'4 Web" class="project-image">
+                        <h3 class="project-title">Power'4 Web</h3>
+                        <p class="project-description">
+                            Le projet Power'4 Web consiste à développer une version 
+                            web du jeu Puissance 4, en respectant les règles classiques 
+                            et en proposant une interface graphique intuitive.
+                            Deux joueurs s'affrontent en local multijoueur sur la même machine, 
+                            via un serveur HTTP écrit en Go et des templates GOHTML.
+                        </p>
+                        <div class="project-tags">
+                            <span class="tag">HTML</span>
+                            <span class="tag">CSS</span>
+                            <span class="tag">GoLang</span>
+                        </div>
+                    </div>
+                </a>
+                <a href="https://steel-mentality-479c08687e3d.herokuapp.com/" class="project-link" data-category="html css js php" target="_blank">
+                    <div class="project-card">
+                        <img src="/static/assets/sme.png" alt="Steel Mentality Esport" class="project-image">
+                        <h3 class="project-title">Steel Mentality Esport</h3>
+                        <p class="project-description">
+                            (PROJET EN COURS)
+                            Lors du Ydays 2025, j'ai rejoint une équipe esport :
+                            Steel Mentality Esport. Notre objectif, pour ceux qui font 
+                            une filière informatique, est de concevoir un site web 
+                            vitrine pour l'équipe.
+                        </p>
+                        <div class="project-tags">
+                            <span class="tag">HTML</span>
+                            <span class="tag">CSS</span>
+                            <span class="tag">JavaScript</span>
+                            <span class="tag">PHP</span>
+                        </div>
+                    </div>
+                </a>
+            </div>
+            <button class="carousel-nav-btn next" id="nextProject">›</button>
+        </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-content">
+            <p class="footer-text">&copy; 2025 Théodore NAJMAN - Tous droits réservés</p>
+        </div>
+    </footer>
+
+    <script src="/static/js/main.js"></script>
+</body>
+</html>
