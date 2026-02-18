@@ -2,6 +2,10 @@
 
 Portfolio personnel développé en HTML, CSS et JavaScript, présentant mon parcours, mes compétences et mes projets.
 
+## Lien vers Scalingo
+
+(https://portfolio-theodorenajman.osc-fr1.scalingo.io/)
+
 ## 📖 Présentation du projet
 
 À l'aide de l'IA, on créé un portfolio présentant mon parcours, mes compétences et mes projets en respectant ces 2 contraintes : documenter chaque prompt utilisé et enregistrer la progression étape par étape.
